@@ -67,9 +67,9 @@ $accountToken2=
 	"\n\t".'"ActivationRandomness" = "'.$activationRandomness.'";'.
 	"\n\t".'"UniqueDeviceID" = "'.$uniqueDiviceID.'";'.
 	"\n\t".'"SerialNumber" = "'.$serialNumber.'";'.
-	"\n\t".'"CertificateURL" = "https://albert.apple.com/deviceservices/certifyMe";'.
 	"\n\t".'"PhoneNumberNotificationURL" = "https://albert.apple.com/deviceservices/phoneHome";'.
-	"\n\t".'"WildcardTicket" = "MIICHAIBATALBgkqhkiG9w0BAQWgdzB1AzEAgn1X4NL5tuZIoIjDh5meADOm1sDvpHjtnI9OxfqdZlEDGLZMaeaPY6O+iD0xsB7TBEAaNS6IKhyHU2k9An41IulixP/uC3zWZOIqseSIUyRawhu7/emlH8rRXUWCRopOJks7LNaywlVGTUBGNf3LSRE4MW6fPwQkKcken0AE4QBaAJ9LFFSASxcGlMJDZKMdGYHornvS53uOn4drB5kAAYZyB0ifh20HmQABhnIHSJ+XOAczMTBWWlcAn5c9DAAAAADu7u7u7u7u75+XPgQBAAAAn5c/BAEAAACfl0AEAAAAAASBgKLIKQ5BrMkZh74IoXp54aESoz6VMZHiqvoBUIIOt/+lUqisfpGKOCqjBmE5X20sy6oTeRo9/wph/+BHPJacFE1CJfCMKITvJ2O4c8ZurHX23wOcEERvwCuSZ9gkDhVSm+veC4ZY84Cxma+owiuFquxltae//xxcj3Mv5DfUl6oAo4GdMAsGCSqGSIb3DQEBAQOBjQAwgYkCgYEA7To/ZNHoIJzBUgY0734vsgl+ACxDQ+f4quvmSrPAtgDENSZwaVrHXpF+cRKBABqkDa00YcENx2dtS1tuHLKDNn1zMZLaZRpiK9UeiMPNZL6mlg12BWLwVjlFOGED8U6pfXwOw6D/FCDRgvyGBn7wsw8sEa7AdlYmMHGmkvwgOP0CAwEAAQ==\n";'.
+	"\n\t".'"ProposedTicket" = "MIICHAIBATALBgkqhkiG9w0BAQWgdzB1AzEAgn1X4NL5tuZIoIjDh5meADOm1sDvpHjtnI9OxfqdZlEDGLZMaeaPY6O+iD0xsB7TBEAaNS6IKhyHU2k9An41IulixP/uC3zWZOIqseSIUyRawhu7/emlH8rRXUWCRopOJks7LNaywlVGTUBGNf3LSRE4MW6fPwQkKcken0AE4QBaAJ9LFFSASxcGlMJDZKMdGYHornvS53uOn4drB5kAAYZyB0ifh20HmQABhnIHSJ+XOAczMTBWWlcAn5c9DAAAAADu7u7u7u7u75+XPgQBAAAAn5c/BAEAAACfl0AEAAAAAASBgKLIKQ5BrMkZh74IoXp54aESoz6VMZHiqvoBUIIOt/+lUqisfpGKOCqjBmE5X20sy6oTeRo9/wph/+BHPJacFE1CJfCMKITvJ2O4c8ZurHX23wOcEERvwCuSZ9gkDhVSm+veC4ZY84Cxma+owiuFquxltae//xxcj3Mv5DfUl6oAo4GdMAsGCSqGSIb3DQEBAQOBjQAwgYkCgYEA7To/ZNHoIJzBUgY0734vsgl+ACxDQ+f4quvmSrPAtgDENSZwaVrHXpF+cRKBABqkDa00YcENx2dtS1tuHLKDNn1zMZLaZRpiK9UeiMPNZL6mlg12BWLwVjlFOGED8U6pfXwOw6D/FCDRgvyGBn7wsw8sEa7AdlYmMHGmkvwgOP0CAwEAAQ==\n";'.
+	"\n\t".'"FactoryActivated" = "True";'.
 	"\n".
  '}';
 $accountToken=
@@ -79,27 +79,42 @@ $accountToken=
 	"\n\t".'"ActivationRandomness" = "'.$activationRandomness.'";'.
 	"\n\t".'"UniqueDeviceID" = "'.$uniqueDiviceID.'";'.
 	"\n\t".'"SerialNumber" = "'.$serialNumber.'";'.
-	"\n\t".'"CertificateURL" = "https://albert.apple.com/deviceservices/certifyMe";'.
+	"\n\t".'"FactoryActivated" = "True";'.
 	"\n".
  '}';
 
 $accountTokenBase64=base64_encode($accountToken);
 $accountTokenBase642=base64_encode($accountToken2);
+
+/* 
+
+The RSA Private Key that is required for iPhone Activation on iOS 7.1.2 must be one of the following:
+
+1) iPhoneActivation.pem 
+2) FactoryActivation.pem
+3) RaptorActivation.pem
+4) Self-Signed iPhoneActivation.cer & iPhoneActivation_private.pem
+
+The following RSA key is a working example of option 4 above.
+
+*/
+
 $private = '-----BEGIN RSA PRIVATE KEY-----
-MIICXQIBAAKBgQCzYmXsSN3d7UTU8f77wm9C0IIJAwCmAeixBwkmWxJl239RFe9P
-RbOPzk0WHTiEARBXToxx4V7eZxR12kiaTG/wRWVm6Jy1okz0U8HsmGKQsJS+EvKg
-rFx3FgdzclqXulBOZzBSHvAwTo+ypNPR+vhmeYeRL6HvTuZBjZQYKeDyzwIDAQAB
-AoGBAKL7vzFND1CpWIXGDe9+vIpPWiaH9NngGCRoCRcxXejv4qCwtksnQDtjrMRv
-7j55nPhGZPK/WuvlakCeAKM42eZF/q2gRBeAZJNQkSHBW9d/OEt7bla92Fj+8IjP
-A3cQ+eyo/KyNtF6OL9KE6ghMskKsGBkdMZkDJHMxVu+sK35pAkEA3QBbOwB4tPdK
-4w+RwufoTmmSDxTGO5uvpsBRnFQ4K0s3WfPjhumDQRBeic+HxTDY72O1/iDpTbL9
-pTW4f5qeswJBAM/K108a370DybA87FYVvMDOGBJsudIzLLhNj4eP4pO2+Dai955Y
-qXTF1ntlOX7lD73QYFyrfrvMqWj43i3laXUCQFUymvkPAHm7T+pjCS1bW+pGtqEL
-wDQgm8GsKIocyZ6fG5KY/CD5irkdh2SXVd8GKst25CU5KNfkZfY31I2U3RMCQQC4
-DqGHNXPH1ooZrO1fF2QZmLSj5WD3u1K6ciFX3/DADUtyAgq6XSjFAdUJelFigH3g
-Eaq5i0L4EMJi9EbBertdAkAdMef5SNkge26nq7nylq0/mVA0sEPTA/bSAMrZDVgV
-4UBLXq12y1pQArJ/8rzkdL4x6fak50qzupAa/Jer8kie
+MIICXQIBAAKBgQDB6D3uBkBTq3ANlIjWUBfjRMbYXMdr6oQeX1uWGWAVvzMO3yEy
+mbBOB2P1fUol39VGtT+K8yv6Yf888V3+0vIxlShDXk+HXXNbf77fZ5Qzpwuzv9d0
+KUSZwZKYI84xZ4uQ9H5fmgq40fSwF7GSInC0J7tzjppnw0xxzrdbqi4PpQIDAQAB
+AoGATbVc3D71GJLj3Q1hqUF/0TyG076azMy3FdTxRz30G8L8G0GgdD7TQPIFRSRo
+yrThK+0HAhBh133eY/X2zWCMXk9dBPvlSy8fuEH17gCb1BiQ3yc7ujKtVUt4k8hg
+sutREh3zknDAwJx9i0lB6nlQUNug3a5Fvcpo6xmZCl0ZGgECQQDxJ68dReE+0Xj2
+uxL005CJdzEUjeQMxFNftNyFWZcY1SQtBMCYB41kE6WPqmbtxNqNPtc0p5ZusOJc
+bjv6ZNo1AkEAzdf9C/2mO4igUOOELWmlfXGoQNHuesfH0Skk9Qt0/r8u893ldRN0
+IY6fAxqMfXmcgjgOSOqDMhODkb+IbbSNsQJBAIHwwSHD0o/XrRc9TASRrvLzP4X0
+wqnCa65JNP3BfXIK/vgm9GO2xg/jqjUUO2vow16SOsGLf7pbI01stHLCPvUCQQCF
+U74akyul6gP1ALjvdTt0ujaB7bgrHNXHG4BNnCMmkgzGdlaWc4hH6AoEx6Bx8WA3
+VDmkbwmVWOBieg3TCRyxAkBKfDVXdUGBs+EpzQ4kdTyJtxRMOXLnXsQRDmtW8BTn
+LlRnlBF5VKlYlTyiQRTsfkSUKmDZzHobxR0c/uDXy5ba
 -----END RSA PRIVATE KEY-----';
+
 $pkeyid = openssl_pkey_get_private($private);
 $pkeyid2 = openssl_pkey_get_private($private);
 
