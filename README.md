@@ -10,4 +10,4 @@ Easy to use follow these steps :
 * Enjoy Your iDevice is bypassed!
 
 **Donate** : https://www.paypal.me/iboyinc
-**Twitter** : https://twitter.com/iBoyinc
+**Twitter** : https://twitter.com/iboy_inc
